@@ -30,5 +30,6 @@ public interface SpaceService extends IService<Space> {
 
     QueryWrapper<Space> getQueryWrapper(SpaceQueryRequest spaceQueryRequest);
 
+
     void checkSpaceAuth(User loginUser, Space space);
 }

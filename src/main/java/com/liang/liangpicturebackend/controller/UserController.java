@@ -152,6 +152,16 @@ public class UserController {
         return ResultUtils.success(userVOPage);
     }
 
+    /**
+     * 更新用户个人信息
+     *
+     * @return
+     */
+    @PostMapping("/profile")
+    public String updateProfile() {
+        return "success";
+    }
+
 
 
 }
