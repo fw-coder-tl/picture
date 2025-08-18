@@ -1,4 +1,4 @@
-package com.liang.liangpicturebackend.model.vo.space.analyze.analyze;
+package com.liang.liangpicturebackend.model.vo.space.analyze;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,15 +9,15 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SpaceSizeAnalyzeResponse implements Serializable {
+public class SpaceTagAnalyzeResponse implements Serializable {
 
     /**
-     * 图片大小范围
+     * 标签名称
      */
-    private String sizeRange;
+    private String tag;
 
     /**
-     * 图片数量
+     * 使用次数
      */
     private Long count;
 

@@ -22,8 +22,8 @@ public class WebSocketConfig implements WebSocketConfigurer {
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(pictureEditHandler, "/ws/picture/edit")
+        registry.addHandler(pictureEditHandler, "ws/picture/edit")
                 .addInterceptors(wsHandshakeInterceptor)
-                .setAllowedOrigins("http://localhost:8123");
+                .setAllowedOrigins("*");
     }
 }

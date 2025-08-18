@@ -1,4 +1,4 @@
-package com.liang.liangpicturebackend.model.vo.space.analyze.analyze;
+package com.liang.liangpicturebackend.model.vo.space.analyze;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,18 +9,22 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SpaceTagAnalyzeResponse implements Serializable {
+public class SpaceCategoryAnalyzeResponse implements Serializable {
 
     /**
-     * 标签名称
+     * 图片分类
      */
-    private String tag;
+    private String category;
 
     /**
-     * 使用次数
+     * 图片数量
      */
     private Long count;
 
+    /**
+     * 分类图片总大小
+     */
+    private Long totalSize;
+
     private static final long serialVersionUID = 1L;
 }
-

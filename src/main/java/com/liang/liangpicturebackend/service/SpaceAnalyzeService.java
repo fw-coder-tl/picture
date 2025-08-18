@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.liang.liangpicturebackend.model.dto.space.analyze.*;
 import com.liang.liangpicturebackend.model.entity.Space;
 import com.liang.liangpicturebackend.model.entity.User;
-import com.liang.liangpicturebackend.model.vo.space.analyze.analyze.*;
+import com.liang.liangpicturebackend.model.vo.space.analyze.*;
 
 import java.util.List;
 

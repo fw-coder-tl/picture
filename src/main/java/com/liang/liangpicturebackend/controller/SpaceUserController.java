@@ -140,4 +140,3 @@ public class SpaceUserController {
         return ResultUtils.success(spaceUserService.getSpaceUserVOList(spaceUserList));
     }
 }
-

@@ -47,9 +47,6 @@ public class SpaceController {
     @Resource
     private SpaceUserAuthManager spaceUserAuthManager;
 
-    @Resource
-    private SpaceUserService spaceUserService;
-
     @PostMapping("/add")
     public BaseResponse<Long> addSpace(@RequestBody SpaceAddRequest spaceAddRequest, HttpServletRequest request) {
         ThrowUtils.throwIf(spaceAddRequest == null, ErrorCode.PARAMS_ERROR);
@@ -71,9 +68,6 @@ public class SpaceController {
         ThrowUtils.throwIf(oldSpace == null, ErrorCode.NOT_FOUND_ERROR);
         // 仅本人或者管理员可删除
         spaceService.checkSpaceAuth(loginUser, oldSpace);
-        if(oldSpace.getSpaceType()== SpaceTypeEnum.TEAM.getValue()){
-            spaceUserService.remove(new LambdaQueryWrapper<SpaceUser>().eq(SpaceUser::getSpaceId,oldSpace.getId()));
-        }
         // 操作数据库
         boolean result = spaceService.removeById(id);
         ThrowUtils.throwIf(!result, ErrorCode.OPERATION_ERROR);
@@ -142,7 +136,6 @@ public class SpaceController {
         return ResultUtils.success(spaceVO);
     }
 
-
     /**
      * 分页获取空间列表（仅管理员可用）
      */
@@ -197,7 +190,7 @@ public class SpaceController {
         Space oldSpace = spaceService.getById(id);
         ThrowUtils.throwIf(oldSpace == null, ErrorCode.NOT_FOUND_ERROR);
         // 仅本人或管理员可编辑
-        spaceService.checkSpaceAuth(loginUser, space);
+        spaceService.checkSpaceAuth(loginUser, oldSpace);
         // 操作数据库
         boolean result = spaceService.updateById(space);
         ThrowUtils.throwIf(!result, ErrorCode.OPERATION_ERROR);
@@ -221,5 +214,4 @@ public class SpaceController {
                 .collect(Collectors.toList());
         return ResultUtils.success(spaceLevelList);
     }
-
 }

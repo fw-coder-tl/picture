@@ -417,5 +417,3 @@ public class PictureController {
         return ResultUtils.success(task);
     }
 }
-
-

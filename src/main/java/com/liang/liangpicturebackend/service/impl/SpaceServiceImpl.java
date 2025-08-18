@@ -55,7 +55,7 @@ public class SpaceServiceImpl extends ServiceImpl<SpaceMapper, Space>
     @Resource
     private TransactionTemplate transactionTemplate;
 
-//    // 为了方便部署，注释掉分表
+    // 为了方便部署，注释掉分表
 //    @Resource
 //    @Lazy
 //    private DynamicShardingManager dynamicShardingManager;
@@ -96,24 +96,13 @@ public class SpaceServiceImpl extends ServiceImpl<SpaceMapper, Space>
         String lock = String.valueOf(userId).intern();
         synchronized (lock) {
             Long newSpaceId = transactionTemplate.execute(status -> {
-                // 判断是否已有私有空间
-                if (SpaceTypeEnum.PRIVATE.getValue() == space.getSpaceType()) {
-                    boolean exists = this.lambdaQuery()
-                            .eq(Space::getUserId, userId)
-                            .eq(Space::getSpaceType, SpaceTypeEnum.PRIVATE.getValue())
-                            .exists();
-                    ThrowUtils.throwIf(exists, ErrorCode.OPERATION_ERROR, "每个用户只能创建一个私有空间");
-                }
-                // 判断公共空间数量是否超限
-                else if (SpaceTypeEnum.TEAM.getValue() == space.getSpaceType()) {
-                    if(!userService.isAdmin(loginUser)){
-                        long count = this.lambdaQuery()
-                                .eq(Space::getUserId, userId)
-                                .eq(Space::getSpaceType, SpaceTypeEnum.TEAM.getValue())
-                                .count();
-                        ThrowUtils.throwIf(count >= 10, ErrorCode.OPERATION_ERROR, "每个用户最多只能创建10个团队空间");
-                    }
-                }
+                // 判断是否已有空间
+                boolean exists = this.lambdaQuery()
+                        .eq(Space::getUserId, userId)
+                        .eq(Space::getSpaceType, space.getSpaceType())
+                        .exists();
+                // 如果已有空间，就不能再创建
+                ThrowUtils.throwIf(exists, ErrorCode.OPERATION_ERROR, "每个用户每类空间只能创建一个");
                 // 创建
                 boolean result = this.save(space);
                 ThrowUtils.throwIf(!result, ErrorCode.OPERATION_ERROR, "保存空间到数据库失败");
@@ -261,8 +250,8 @@ public class SpaceServiceImpl extends ServiceImpl<SpaceMapper, Space>
             throw new BusinessException(ErrorCode.NO_AUTH_ERROR);
         }
     }
-
 }
+
 
 
 

@@ -1,4 +1,4 @@
-package com.liang.liangpicturebackend.model.vo.space.analyze.analyze;
+package com.liang.liangpicturebackend.model.vo.space.analyze;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

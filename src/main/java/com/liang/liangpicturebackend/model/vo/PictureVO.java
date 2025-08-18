@@ -93,7 +93,10 @@ public class PictureVO implements Serializable {
      * 缩略图 url
      */
     private String thumbnailUrl;
-
+    /**
+     * 空间 id
+     */
+    private Long spaceId;
 
     /**
      * 创建用户信息
